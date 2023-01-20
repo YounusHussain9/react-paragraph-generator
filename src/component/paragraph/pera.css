@@ -1,0 +1,19 @@
+
+.pera{
+width: 40rem;
+margin: 0 auto;
+text-align: center;
+line-height: 1.5rem;
+margin-top: 2rem;
+padding: 1rem;
+
+}
+
+.count{
+padding: .3rem;
+border-radius: .2rem;
+background-color: rebeccapurple;
+color: white;
+font-weight: 700;
+margin-right: .5rem;
+}

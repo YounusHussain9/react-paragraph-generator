@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Search from "./component/search/Search";
+import Paragraph from "./component/paragraph/Paragraph";
+import './App.css'
 
-function App() {
+const App = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [paragraph, setParagraph] = useState([]);
+  const [number, setNumber] = useState(0);
+
+  const getParagraph = async () => {
+    setIsLoading(true);
+    const response = await axios.get(
+      `https://hipsum.co/api/?type=hipster-centric&paras=${number}`
+    );
+    setParagraph(response.data);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    getParagraph();
+  }, [number]);
+
+  //change number
+  const numberHandle = (e) => {
+    setNumber(e.target.value);
+    console.log(number);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Search
+        type="number"
+        placeholder="How many paragraph you need?"
+        min={1}
+        changeHandle={numberHandle}
+      />
+      <Paragraph pera={paragraph} />
     </div>
   );
-}
+};
 
 export default App;
